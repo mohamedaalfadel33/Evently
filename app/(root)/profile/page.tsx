@@ -1,6 +1,8 @@
 import Collection from '@/components/shared/Collection';
 import { Button } from '@/components/ui/button';
 import { getEventsByUser } from '@/lib/actions/event.actions';
+import { getOrdersByUser } from '@/lib/actions/order.actions';
+import { IOrder } from '@/lib/database/models/order.model';
 import { auth } from '@clerk/nextjs';
 import Link from 'next/link';
 import React from 'react';
@@ -8,10 +10,16 @@ import React from 'react';
 const ProfilePage = async () => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
+  const orders = await getOrdersByUser({ userId, page: 1 });
+  const orderedEvents = orders?.data.map((order: IOrder) => order.event || []);
+
   const organizedEvents = await getEventsByUser({
     userId,
     page: 1,
   });
+
+  console.log(orderedEvents);
+
   return (
     <>
       {/* My tickets */}
@@ -24,9 +32,9 @@ const ProfilePage = async () => {
         </div>
       </section>
 
-      {/* <section className=" wrapper my-8">
+      <section className=" wrapper my-8">
         <Collection
-          data={events?.data}
+          data={orderedEvents}
           emptyTitle="No Event tickets purchased yet"
           emptyStateSubtext="No worries - plenty of exiting events to explore!"
           collectionType="My_Tickets"
@@ -35,7 +43,7 @@ const ProfilePage = async () => {
           urlParamName="orderPage"
           totalPages={2}
         />
-      </section> */}
+      </section>
 
       {/* Events Organized */}
 
