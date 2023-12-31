@@ -64,7 +64,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
         </p>
         <div className=" flex-between w-full">
           <p className="p-medium-14 md:p-medium-16 text-gray-600 ">
-            {event.organizer.firstName} {event.organizer.lastName}
+           By {event.organizer.firstName} {event.organizer.lastName}
           </p>
 
           {hasOrderLink && (
