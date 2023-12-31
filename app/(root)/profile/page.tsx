@@ -3,19 +3,23 @@ import { Button } from '@/components/ui/button';
 import { getEventsByUser } from '@/lib/actions/event.actions';
 import { getOrdersByUser } from '@/lib/actions/order.actions';
 import { IOrder } from '@/lib/database/models/order.model';
+import { SearchParamProps } from '@/types';
 import { auth } from '@clerk/nextjs';
 import Link from 'next/link';
 import React from 'react';
 
-const ProfilePage = async () => {
+const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
-  const orders = await getOrdersByUser({ userId, page: 1 });
+  const ordersPage = Number(searchParams?.ordersPage) || 1;
+  const eventsPage = Number(searchParams?.eventsPage) || 1;
+
+  const orders = await getOrdersByUser({ userId, page: ordersPage });
   const orderedEvents = orders?.data.map((order: IOrder) => order.event || []);
 
   const organizedEvents = await getEventsByUser({
     userId,
-    page: 1,
+    page: eventsPage,
   });
 
   console.log(orderedEvents);
@@ -38,10 +42,10 @@ const ProfilePage = async () => {
           emptyTitle="No Event tickets purchased yet"
           emptyStateSubtext="No worries - plenty of exiting events to explore!"
           collectionType="My_Tickets"
+          page={ordersPage}
           limit={3}
-          page={1}
           urlParamName="orderPage"
-          totalPages={2}
+          totalPages={orders?.totalPages}
         />
       </section>
 
@@ -63,9 +67,9 @@ const ProfilePage = async () => {
           emptyStateSubtext="Go create some now!"
           collectionType="Events_Organized"
           limit={6}
-          page={1}
+          page={eventsPage}
           urlParamName="eventsPage"
-          totalPages={2}
+          totalPages={organizedEvents?.totalPages}
         />
       </section>
     </>
