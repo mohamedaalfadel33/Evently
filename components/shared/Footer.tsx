@@ -13,7 +13,7 @@ export default function Footer() {
             height={38}
           />
         </Link>
-        <p>2023 Evently. All Rights reserved</p>
+        <p>2023 Evently. All Rights reserved @Mohamed_alfadel</p>
       </div>
     </footer>
   );

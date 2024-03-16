@@ -1,7 +1,6 @@
 import { SignIn, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { Button } from '../ui/button';
 import NavItems from './NavItems';
 import MobileNav from './MobileNav';
@@ -32,7 +31,7 @@ export default function Header() {
           </SignedIn>
           <SignedOut>
             <Button asChild className=" rounded-full" size="lg">
-              <Link href="/sign-in">Login</Link>
+              <Link href="/sign-in">login</Link>
             </Button>
           </SignedOut>
         </div>
