@@ -14,7 +14,12 @@ export default function Footer() {
             height={38}
           />
         </Link>
-        <p>{date} Evently. All Rights reserved @Mohamed_alfadel</p>
+        <p>
+          {date} Evently. All Rights reserved {''}
+          <Link target="_blank" href={'https://twitter.com/Mohamedalfad'}>
+            @Mohamed_alfadel
+          </Link>
+        </p>
       </div>
     </footer>
   );
