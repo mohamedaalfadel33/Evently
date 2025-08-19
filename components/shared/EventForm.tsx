@@ -24,7 +24,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useUploadThing } from '@/lib/uploadthing';
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRouter } from 'next/navigation';
@@ -118,6 +117,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         className="flex flex-col gap-5"
       >
         <div className="flex flex-col gap-5 md:flex-row">
+
           <FormField
             control={form.control}
             name="title"
